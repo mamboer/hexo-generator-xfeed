@@ -1,0 +1,41 @@
+{
+  "name": "hexo-generator-xfeed",
+  "version": "1.2.3",
+  "description": "Feed generator plugin for Hexo. This is a copy of the official feed plugin for radical development.",
+  "main": "index",
+  "scripts": {
+    "eslint": "eslint .",
+    "jscs": "jscs .",
+    "test": "mocha test/index.js",
+    "test-cov": "istanbul cover --print both _mocha -- test/index.js"
+  },
+  "directories": {
+    "lib": "./lib"
+  },
+  "repository": "mamboer/hexo-generator-xfeed",
+  "keywords": [
+    "hexo",
+    "rss",
+    "feed",
+    "atom",
+    "generator"
+  ],
+  "author": "Levin Van <mamboer@gmail.com> (http://faso.me)",
+  "license": "MIT",
+  "dependencies": {
+    "he": "^1.1.1",
+    "nunjucks": "^3.0.0",
+    "object-assign": "^4.1.1"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "cheerio": "^0.22.0",
+    "eslint": "^2.13.1",
+    "eslint-config-hexo": "^1.0.4",
+    "hexo": "^3.3.1",
+    "jscs": "^3.0.7",
+    "jscs-preset-hexo": "^1.0.1",
+    "mocha": "^3.2.0",
+    "istanbul": "^0.4.5"
+  }
+}
