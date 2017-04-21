@@ -22,7 +22,7 @@
     <published>{{ post.date.toISOString() }}</published>
     <updated>{{ post.updated.toISOString() }}</updated>
     {% if config.xfeed.content and post.content %}
-    <content type="html"><![CDATA[{{ post.content | he }}]]></content>
+    <content type="html"><![CDATA[{{ post.content | xsafe | safe }}]]></content>
     {% endif %}
     <summary type="html">
     {% if post.description %}

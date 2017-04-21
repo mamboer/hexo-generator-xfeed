@@ -2,21 +2,16 @@
 
 var should = require('chai').should(); // eslint-disable-line
 var Hexo = require('hexo');
-var nunjucks = require('nunjucks');
-var env = new nunjucks.Environment();
+var nunjucks = require('../lib/nunjucks');
 var pathFn = require('path');
 var fs = require('fs');
 var assign = require('object-assign');
 var cheerio = require('cheerio');
 
-env.addFilter('uriencode', function(str) {
-  return encodeURI(str);
-});
-
 var atomTmplSrc = pathFn.join(__dirname, '../atom.xml');
-var atomTmpl = nunjucks.compile(fs.readFileSync(atomTmplSrc, 'utf8'), env);
+var atomTmpl = nunjucks.proxy.compile(fs.readFileSync(atomTmplSrc, 'utf8'), nunjucks.env);
 var rss2TmplSrc = pathFn.join(__dirname, '../rss2.xml');
-var rss2Tmpl = nunjucks.compile(fs.readFileSync(rss2TmplSrc, 'utf8'), env);
+var rss2Tmpl = nunjucks.proxy.compile(fs.readFileSync(rss2TmplSrc, 'utf8'), nunjucks.env);
 
 var urlConfig = {
   url: 'http://localhost/',
@@ -47,7 +42,7 @@ describe('Feed generator', function() {
   });
 
   it('type = atom', function() {
-    hexo.config.feed = {
+    hexo.config.xfeed = {
       type: 'atom',
       path: 'atom.xml',
       limit: 2
@@ -65,7 +60,7 @@ describe('Feed generator', function() {
   });
 
   it('type = rss2', function() {
-    hexo.config.feed = {
+    hexo.config.xfeed = {
       type: 'rss2',
       path: 'rss2.xml',
       limit: 2
@@ -83,7 +78,7 @@ describe('Feed generator', function() {
   });
 
   it('limit = 0', function() {
-    hexo.config.feed = {
+    hexo.config.xfeed = {
       type: 'atom',
       path: 'atom.xml',
       limit: 0
@@ -102,7 +97,7 @@ describe('Feed generator', function() {
   });
 
   it('Preserves HTML in the content field', function() {
-    hexo.config.feed = {
+    hexo.config.xfeed = {
       type: 'rss2',
       path: 'rss2.xml',
       content: true
@@ -114,9 +109,9 @@ describe('Feed generator', function() {
       .replace(/^<!\[CDATA\[/, '')
       .replace(/\]\]>$/, '');
 
-    description.should.be.equal(encodeURI('<h6>TestHTML</h6>'));
+    description.should.be.equal(nunjucks.filters.xsafe('<h6>TestHTML</h6>'));
 
-    hexo.config.feed = {
+    hexo.config.xfeed = {
       type: 'atom',
       path: 'atom.xml',
       content: true
@@ -127,12 +122,12 @@ describe('Feed generator', function() {
       .replace(/^<!\[CDATA\[/, '')
       .replace(/\]\]>$/, '');
 
-    description.should.be.equal(encodeURI('<h6>TestHTML</h6>'));
+    description.should.be.equal(nunjucks.filters.xsafe('<h6>TestHTML</h6>'));
 
   });
 
   it('Relative URL handling', function() {
-    hexo.config.feed = {
+    hexo.config.xfeed = {
       type: 'atom',
       path: 'atom.xml'
     };
