@@ -1,6 +1,6 @@
 {
   "name": "hexo-generator-xfeed",
-  "version": "1.2.3",
+  "version": "1.2.4",
   "description": "Feed generator plugin for Hexo. This is a copy of the official feed plugin for radical development.",
   "main": "index",
   "scripts": {
@@ -23,7 +23,6 @@
   "author": "Levin Van <mamboer@gmail.com> (http://faso.me)",
   "license": "MIT",
   "dependencies": {
-    "he": "^1.1.1",
     "nunjucks": "^3.0.0",
     "object-assign": "^4.1.1"
   },

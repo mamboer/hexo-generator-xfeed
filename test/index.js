@@ -109,7 +109,7 @@ describe('Feed generator', function() {
       .replace(/^<!\[CDATA\[/, '')
       .replace(/\]\]>$/, '');
 
-    description.should.be.equal(nunjucks.filters.xsafe('<h6>TestHTML</h6>'));
+    description.should.be.equal(nunjucks.filters.noControlChars('<h6>TestHTML</h6>'));
 
     hexo.config.xfeed = {
       type: 'atom',
@@ -122,7 +122,7 @@ describe('Feed generator', function() {
       .replace(/^<!\[CDATA\[/, '')
       .replace(/\]\]>$/, '');
 
-    description.should.be.equal(nunjucks.filters.xsafe('<h6>TestHTML</h6>'));
+    description.should.be.equal(nunjucks.filters.noControlChars('<h6>TestHTML</h6>'));
 
   });
 

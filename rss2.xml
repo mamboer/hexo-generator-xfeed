@@ -17,7 +17,9 @@
       <guid>{{ (url + post.path) | uriencode }}</guid>
       <pubDate>{{ post.date.toDate().toUTCString() }}</pubDate>
       <description>
-      {% if post.description %}
+      {% if post.subtitle %}
+        {{ post.subtitle }}
+      {% elif post.description %}
         {{ post.description }}
       {% elif post.excerpt %}
         {{ post.excerpt }}
@@ -26,7 +28,7 @@
       {% endif %}
       </description>
       {% if config.xfeed.content and post.content %}
-      <content:encoded><![CDATA[{{ post.content | xsafe | safe }}]]></content:encoded>
+      <content:encoded><![CDATA[{{ post.content | noControlChars | safe }}]]></content:encoded>
       {% endif %}
       {% if post.comments %}<comments>{{ (url + post.path) | uriencode }}#disqus_thread</comments>{% endif %}
     </item>
